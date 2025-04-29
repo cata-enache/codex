@@ -26,7 +26,7 @@ vi.mock("../src/approvals.js", () => {
   return {
     __esModule: true,
     canAutoApprove: () =>
-      ({ type: "auto-approve", runInSandbox: false } as any),
+      ({ type: "auto-approve", runInSandbox: false }) as any,
     isSafeCommand: () => null,
   };
 });
@@ -51,12 +51,14 @@ describe("handleExecCommand – invalid executable", () => {
     const execInput = { cmd: ["git show"] } as any;
     const config = { model: "any", instructions: "" } as any;
     const policy = { mode: "auto" } as any;
-    const getConfirmation = async () => ({ review: "yes" } as any);
+    const getConfirmation = async () => ({ review: "yes" }) as any;
 
+    const additionalWritableRoots: Array<string> = [];
     const { outputText, metadata } = await handleExecCommand(
       execInput,
       config,
       policy,
+      additionalWritableRoots,
       getConfirmation,
     );
 
